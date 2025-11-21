@@ -1,265 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>HTML Learning Guide</title>
     <style>
-      @page {
-        margin: 1.5cm;
-        @bottom-center {
-          content: counter(page);
-          font-family: Arial, sans-serif;
-          font-size: 10pt;
-          color: #666;
+        /* Base Styles */
+        :root {
+            --main-padding: 15px;
+            --font-size-base: 1rem;
+            --line-height: 1.6;
         }
-      }
-      body {
-        counter-reset: page;
-        font-family: "Segoe UI", Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 30px 60px;
-        box-sizing: border-box;
-        position: relative;
-      }
 
-      /* Watermark */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 800 400"><text x="50%" y="50%" font-family="Arial" font-size="24" fill="rgba(0,0,0,0.06)" text-anchor="middle" transform="rotate(-30, 400, 200)">Software Engineer: Newton Muhindi | Contact: 0795482911</text></svg>')
-          repeat;
-        pointer-events: none;
-        z-index: -1;
-        opacity: 0.8;
-      }
-      h1 {
-        color: #2c3e50;
-        border-bottom: 3px solid #3498db;
-        padding-bottom: 10px;
-        page-break-after: avoid;
-      }
-      h2 {
-        color: #2980b9;
-        margin-top: 25px;
-        border-left: 4px solid #3498db;
-        padding-left: 15px;
-        page-break-after: avoid;
-      }
-      h3 {
-        color: #34495e;
-        margin-top: 20px;
-        page-break-after: avoid;
-      }
-      .cover {
-        text-align: center;
-        padding: 100px 40px;
-        margin: -30px -60px 30px -60px;
-        border: 3px solid #2c3e50;
-        page-break-after: always;
-        counter-reset: page 1;
-      }
-      .cover h1 {
-        font-size: 2.5em;
-        border: none;
-      }
-      .key-concept {
-        background: #e8f4f8;
-        padding: 15px;
-        border-left: 5px solid #3498db;
-        margin: 15px 0;
-        page-break-inside: avoid;
-      }
-      .example {
-        background: #f9f9f9;
-        border: 1px solid #ddd;
-        padding: 20px 25px;
-        margin: 20px 0;
-        border-radius: 5px;
-        page-break-inside: avoid;
-      }
-      .example-title {
-        font-weight: bold;
-        color: #16a085;
-        margin-bottom: 10px;
-      }
-      code {
-        background: #f4f4f4;
-        padding: 3px 6px;
-        border-radius: 3px;
-        font-family: "Courier New", monospace;
-        color: #c7254e;
-      }
-      pre {
-        background: #2c3e50;
-        color: #ecf0f1;
-        padding: 20px 25px;
-        border-radius: 5px;
-        overflow-x: auto;
-        margin: 20px 0;
-        page-break-inside: avoid;
-      }
-      pre code {
-        background: none;
-        color: #ecf0f1;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        page-break-inside: avoid;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: left;
-      }
-      th {
-        background: #3498db;
-        color: white;
-      }
-      tr:nth-child(even) {
-        background: #f9f9f9;
-      }
-      .warning {
-        background: #fff3cd;
-        border-left: 5px solid #ffc107;
-        padding: 15px;
-        margin: 15px 0;
-        page-break-inside: avoid;
-      }
-      .tip {
-        background: #d4edda;
-        border-left: 5px solid #28a745;
-        padding: 15px;
-        margin: 15px 0;
-        page-break-inside: avoid;
-      }
-      .quiz {
-        background: #f8d7da;
-        border: 2px solid #dc3545;
-        padding: 20px;
-        margin: 20px 0;
-        border-radius: 5px;
-        page-break-inside: avoid;
-      }
-      .quiz h3 {
-        color: #dc3545;
-        margin-top: 0;
-      }
-      .toc {
-        background: #ecf0f1;
-        padding: 25px 30px;
-        margin: 30px -50px;
-        border-radius: 5px;
-        page-break-after: always;
-      }
-      .toc ul {
-        list-style: none;
-        padding-left: 0;
-      }
-      .toc li {
-        padding: 8px 0;
-        border-bottom: 1px solid #bdc3c7;
-      }
-      .chapter-number {
-        color: #3498db;
-        font-weight: bold;
-      }
-      .page-break {
-        page-break-after: always;
-        counter-increment: page;
-      }
+        @media print {
+            body { margin: 0; }
+            .page-break {
+                page-break-after: always;
+                break-after: page;
+            }
+            button { display: none; }
+        }
+        
+        /* Responsive Typography */
+        html {
+            font-size: 16px;
+        }
+        
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.3rem; }
+        
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Form Elements */
+        input, select, textarea, button {
+            font-size: 1rem;
+            max-width: 100%;
+        }
+        
+        /* Responsive Tables */
+        @media screen and (max-width: 768px) {
+            :root {
+                --font-size-base: 0.95rem;
+                --main-padding: 10px;
+            }
+            
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            pre, code {
+                font-size: 0.85em;
+            }
+            
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.35rem; }
+            h3 { font-size: 1.15rem; }
+            
+            .example {
+                padding: 12px;
+            }
+            
+            .key-concept, .tip, .warning, .quiz {
+                margin: 12px 0;
+                padding: 12px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            :root {
+                --font-size-base: 0.9rem;
+                --main-padding: 8px;
+            }
+            
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            h3 { font-size: 1.1rem; }
+            
+            .cover h1 {
+                font-size: 2rem;
+            }
+            
+            .cover p {
+                font-size: 1.1em;
+            }
+            
+            pre {
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            
+            table, th, td {
+                font-size: 0.9em;
+            }
+            
+            button {
+                padding: 14px 16px;
+                font-size: 1rem;
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+            max-width: 100%;
+            margin: 0;
+            padding: 10px;
+            background: #f5f5f5;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .container {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .cover {
+            text-align: center;
+            padding: 80px 20px;
+            border: 3px solid #2c3e50;
+        }
+        
+        .cover h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .cover p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        
+        .key-concept {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #16a085;
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 12px 0;
+            -webkit-overflow-scrolling: touch;
+            font-size: 0.9em;
+        }
+        
+        pre code {
+            background: none;
+            color: #ecf0f1;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        table th,
+        table td {
+            min-width: 100px; /* Prevents columns from becoming too narrow */
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .tip {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .quiz {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .quiz h3 {
+            color: #dc3545;
+            margin-top: 0;
+        }
+        
+        .toc {
+            background: #ecf0f1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 15px 0;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .chapter-number {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        /* Watermark */
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(52, 152, 219, 0.1);
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .watermark {
+                font-size: 18px;
+                transform: translate(-50%, -50%) rotate(-20deg);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .watermark {
+                font-size: 14px;
+                transform: translate(-50%, -50%) rotate(-15deg);
+                width: 200%;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div class="cover">
-      <h1>📚 HTML Learning Guide</h1>
-      <p><strong>For Students</strong></p>
-      <p>A Complete Beginner's Guide to Web Development</p>
-      <p style="margin-top: 50px; color: #888">
-        Based on Modern HTML5 Standards
-      </p>
-    </div>
-
-    <div class="toc">
-      <h2>📑 Table of Contents</h2>
-      <ul>
-        <li><strong>Chapter 1:</strong> Introduction to HTML</li>
-        <li><strong>Chapter 2:</strong> Your First Webpage Structure</li>
-        <li><strong>Chapter 3:</strong> Working with Text</li>
-        <li><strong>Chapter 4:</strong> Creating Lists</li>
-        <li><strong>Chapter 5:</strong> Adding Links and Images</li>
-        <li><strong>Chapter 6:</strong> Building Tables</li>
-        <li><strong>Chapter 7:</strong> Creating Forms</li>
-        <li><strong>Chapter 8:</strong> Modern HTML5 Elements</li>
-        <li><strong>Chapter 9:</strong> Best Practices</li>
-        <li><strong>Chapter 10:</strong> Practice Projects & Quizzes</li>
-      </ul>
-    </div>
-
-    <h1><span class="chapter-number">Chapter 1:</span> Introduction to HTML</h1>
-
-    <div class="key-concept">
-      <h3>💡 What is HTML?</h3>
-      <p>
-        <strong>HTML</strong> stands for
-        <strong>HyperText Markup Language</strong>.
-      </p>
-      <ul>
-        <li>
-          <strong>HyperText</strong> means text with links to other documents
-        </li>
-        <li>
-          <strong>Markup</strong> means we "mark up" text to give it structure
-        </li>
-        <li><strong>Language</strong> means it has rules and syntax</li>
-      </ul>
-    </div>
-
-    <h3>Important Things to Know:</h3>
-    <ul>
-      <li>
-        ✅ HTML is <strong>NOT</strong> a programming language—it's a markup
-        language
-      </li>
-      <li>
-        ✅ It tells your web browser what to display and how to organize content
-      </li>
-      <li>✅ We are using <strong>HTML5</strong>, the latest version</li>
-      <li>✅ Every website you visit uses HTML!</li>
-    </ul>
-
-    <div class="example">
-      <div class="example-title">🌍 Real-World Example:</div>
-      <p>Think of HTML like the skeleton of a building:</p>
-      <ul>
-        <li>The skeleton (HTML) gives structure</li>
-        <li>Paint and decorations (CSS) make it look beautiful</li>
-        <li>Electricity and plumbing (JavaScript) make it functional</li>
-      </ul>
-    </div>
-
-    <div class="page-break"></div>
-
-    <h1>
-      <span class="chapter-number">Chapter 2:</span> Your First Webpage
-      Structure
-    </h1>
-
-    <div class="key-concept">
-      <h3>🏗️ The Basic HTML Skeleton</h3>
-      <p>Every HTML page MUST have this structure. Memorize it!</p>
-    </div>
-
-    <pre><code>&lt;!DOCTYPE html&gt;
+</head>
+<body>
+    <div class="watermark">Software Engineer: Newton Muhindi | 0795482911</div>
+    <button onclick="window.print()">📄 Download as PDF</button>
+    
+    <div class="container">
+        <div class="cover">
+            <h1>📚 HTML Learning Guide</h1>
+            <p><strong>Beginner to Advanced</strong></p>
+            <p>A Complete Beginner's Guide to Web Development</p>
+            <p style="margin-top: 50px; color: #888;">Based on Modern HTML5 Standards</p>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><strong>Chapter 1:</strong> Introduction to HTML</li>
+                <li><strong>Chapter 2:</strong> Your First Webpage Structure</li>
+                <li><strong>Chapter 3:</strong> Working with Text</li>
+                <li><strong>Chapter 4:</strong> Creating Lists</li>
+                <li><strong>Chapter 5:</strong> Adding Links and Images</li>
+                <li><strong>Chapter 6:</strong> Building Tables</li>
+                <li><strong>Chapter 7:</strong> Creating Forms</li>
+                <li><strong>Chapter 8:</strong> Modern HTML5 Elements</li>
+                <li><strong>Chapter 9:</strong> Best Practices</li>
+                <li><strong>Chapter 10:</strong> Practice Projects & Quizzes</li>
+            </ul>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 1:</span> Introduction to HTML</h1>
+        
+        <div class="key-concept">
+            <h3>💡 What is HTML?</h3>
+            <p><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>.</p>
+            <ul>
+                <li><strong>HyperText</strong> means text with links to other documents</li>
+                <li><strong>Markup</strong> means we "mark up" text to give it structure</li>
+                <li><strong>Language</strong> means it has rules and syntax</li>
+            </ul>
+        </div>
+        
+        <h3>Important Things to Know:</h3>
+        <ul>
+            <li>✅ HTML is <strong>NOT</strong> a programming language—it's a markup language</li>
+            <li>✅ It tells your web browser what to display and how to organize content</li>
+            <li>✅ We are using <strong>HTML5</strong>, the latest version</li>
+            <li>✅ Every website you visit uses HTML!</li>
+        </ul>
+        
+        <div class="example">
+            <div class="example-title">🌍 Real-World Example:</div>
+            <p>Think of HTML like the skeleton of a building:</p>
+            <ul>
+                <li>The skeleton (HTML) gives structure</li>
+                <li>Paint and decorations (CSS) make it look beautiful</li>
+                <li>Electricity and plumbing (JavaScript) make it functional</li>
+            </ul>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 2:</span> Your First Webpage Structure</h1>
+        
+        <div class="key-concept">
+            <h3>🏗️ The Basic HTML Skeleton</h3>
+            <p>Every HTML page MUST have this structure. Memorize it!</p>
+        </div>
+        
+        <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
@@ -271,580 +433,1431 @@
     &lt;p&gt;This is my first webpage.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-    <h3>📝 Understanding Each Part:</h3>
-
-    <table>
-      <tr>
-        <th>Tag</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td><code>&lt;!DOCTYPE html&gt;</code></td>
-        <td>Tells the browser "This is HTML5"</td>
-      </tr>
-      <tr>
-        <td><code>&lt;html lang="en"&gt;</code></td>
-        <td>Root element. lang="en" means English language</td>
-      </tr>
-      <tr>
-        <td><code>&lt;head&gt;</code></td>
-        <td>Contains information ABOUT the page (not visible)</td>
-      </tr>
-      <tr>
-        <td><code>&lt;meta charset="utf-8"&gt;</code></td>
-        <td>Supports special characters like á, ñ, €</td>
-      </tr>
-      <tr>
-        <td><code>&lt;title&gt;</code></td>
-        <td>Shows in browser tab</td>
-      </tr>
-      <tr>
-        <td><code>&lt;body&gt;</code></td>
-        <td>Everything users SEE goes here</td>
-      </tr>
-    </table>
-
-    <div class="tip">
-      <strong>💡 Pro Tip:</strong> Always start EVERY HTML file with this
-      skeleton!
-    </div>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 3:</span> Working with Text</h1>
-
-    <h2>3.1 Headings</h2>
-
-    <div class="key-concept">
-      <p>HTML has 6 levels of headings, from biggest (h1) to smallest (h6).</p>
-    </div>
-
-    <pre><code>&lt;h1&gt;Main Title (Use only ONCE per page)&lt;/h1&gt;
+        
+        <h3>📝 Understanding Each Part:</h3>
+        
+        <table>
+            <tr>
+                <th>Tag</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                <td>Tells the browser "This is HTML5"</td>
+            </tr>
+            <tr>
+                <td><code>&lt;html lang="en"&gt;</code></td>
+                <td>Root element. <code>lang="en"</code> means English language</td>
+            </tr>
+            <tr>
+                <td><code>&lt;head&gt;</code></td>
+                <td>Contains information ABOUT the page (not visible to users)</td>
+            </tr>
+            <tr>
+                <td><code>&lt;meta charset="utf-8"&gt;</code></td>
+                <td>Supports special characters like á, ñ, €, 中</td>
+            </tr>
+            <tr>
+                <td><code>&lt;meta name="viewport"...&gt;</code></td>
+                <td>Makes your website work well on mobile phones</td>
+            </tr>
+            <tr>
+                <td><code>&lt;title&gt;</code></td>
+                <td>Shows in browser tab (very important!)</td>
+            </tr>
+            <tr>
+                <td><code>&lt;body&gt;</code></td>
+                <td>Everything users SEE goes here</td>
+            </tr>
+        </table>
+        
+        <div class="tip">
+            <strong>💡 Pro Tip:</strong> Always start EVERY HTML file with this skeleton. You can copy and paste it!
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 3:</span> Working with Text</h1>
+        
+        <h2>3.1 Headings</h2>
+        
+        <div class="key-concept">
+            <p>HTML has 6 levels of headings, from biggest (<code>&lt;h1&gt;</code>) to smallest (<code>&lt;h6&gt;</code>).</p>
+        </div>
+        
+        <pre><code>&lt;h1&gt;Main Title (Use only ONCE per page)&lt;/h1&gt;
 &lt;h2&gt;Section Title&lt;/h2&gt;
 &lt;h3&gt;Sub-section&lt;/h3&gt;
 &lt;h4&gt;Smaller heading&lt;/h4&gt;
 &lt;h5&gt;Even smaller&lt;/h5&gt;
 &lt;h6&gt;Tiniest heading&lt;/h6&gt;</code></pre>
+        
+        <div class="warning">
+            <strong>⚠️ Important Rule:</strong> Use only ONE <code>&lt;h1&gt;</code> per page. It's like the title of a book—there's only one main title!
+        </div>
+        
+        <h2>3.2 Paragraphs</h2>
+        
+        <pre><code>&lt;p&gt;This is a normal paragraph. Browsers automatically add space before and after it.&lt;/p&gt;</code></pre>
+        
+        <h2>3.3 Line Breaks and Horizontal Lines</h2>
+        
+        <pre><code>This is line one&lt;br&gt;
+This is line two
 
-    <div class="warning">
-      <strong>⚠️ Important:</strong> Use only ONE h1 per page!
-    </div>
+&lt;hr&gt;  &lt;!-- Creates a horizontal line --&gt;</code></pre>
+        
+        <div class="tip">
+            <strong>💡 Note:</strong> <code>&lt;br&gt;</code> and <code>&lt;hr&gt;</code> are <strong>self-closing tags</strong>—they don't need a closing tag!
+        </div>
+        
+        <h2>3.4 Text Formatting Tags</h2>
+        
+        <table>
+            <tr>
+                <th>Tag</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><code>&lt;strong&gt;</code></td>
+                <td>Bold + Important</td>
+                <td><code>&lt;strong&gt;Very important!&lt;/strong&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;em&gt;</code></td>
+                <td>Italic + Emphasis</td>
+                <td><code>&lt;em&gt;This is stressed&lt;/em&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;u&gt;</code></td>
+                <td>Underline</td>
+                <td><code>&lt;u&gt;Underline me&lt;/u&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;s&gt;</code></td>
+                <td>Strikethrough (crossed out)</td>
+                <td><code>&lt;s&gt;Wrong price&lt;/s&gt; KSh 100&lt;/code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;mark&gt;</code></td>
+                <td>Highlight text</td>
+                <td><code>&lt;mark&gt;Important note&lt;/mark&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>&lt;sup&gt;</code></td>
+                <td>Superscript (above)</td>
+                <td><code>x&lt;sup&gt;2&lt;/sup&gt;</code> → x²</td>
+            </tr>
+            <tr>
+                <td><code>&lt;sub&gt;</code></td>
+                <td>Subscript (below)</td>
+                <td><code>H&lt;sub&gt;2&lt;/sub&gt;O</code> → H₂O</td>
+            </tr>
+        </table>
+        
+        <div class="example">
+            <div class="example-title">📝 Complete Example:</div>
+            <pre><code>&lt;p&gt;Water is H&lt;sub&gt;2&lt;/sub&gt;O and costs &lt;strong&gt;KSh 50&lt;/strong&gt; (was &lt;s&gt;100&lt;/s&gt;).&lt;/p&gt;</code></pre>
+            <p><strong>Result:</strong> Water is H₂O and costs <strong>KSh 50</strong> (was <s>100</s>).</p>
+        </div>
+        
+        <h2>3.5 Comments</h2>
+        
+        <p>Comments are notes in your code that browsers ignore. They help you remember what your code does!</p>
+        
+        <pre><code>&lt;!-- This is a comment. Users cannot see this! --&gt;
 
-    <h2>3.2 Text Formatting Tags</h2>
-
-    <table>
-      <tr>
-        <th>Tag</th>
-        <th>Purpose</th>
-        <th>Example</th>
-      </tr>
-      <tr>
-        <td><code>&lt;strong&gt;</code></td>
-        <td>Bold + Important</td>
-        <td>&lt;strong&gt;Very important!&lt;/strong&gt;</td>
-      </tr>
-      <tr>
-        <td><code>&lt;em&gt;</code></td>
-        <td>Italic + Emphasis</td>
-        <td>&lt;em&gt;This is stressed&lt;/em&gt;</td>
-      </tr>
-      <tr>
-        <td><code>&lt;mark&gt;</code></td>
-        <td>Highlight</td>
-        <td>&lt;mark&gt;Important&lt;/mark&gt;</td>
-      </tr>
-      <tr>
-        <td><code>&lt;sup&gt;</code></td>
-        <td>Superscript</td>
-        <td>x&lt;sup&gt;2&lt;/sup&gt;</td>
-      </tr>
-      <tr>
-        <td><code>&lt;sub&gt;</code></td>
-        <td>Subscript</td>
-        <td>H&lt;sub&gt;2&lt;/sub&gt;O</td>
-      </tr>
-    </table>
-
-    <h2>3.3 Comments & Special Characters</h2>
-
-    <pre><code>&lt;!-- This is a comment --&gt;
-
-&amp;lt;   →  &lt;
-&amp;gt;   →  &gt;
-&amp;copy; →  ©
-&amp;trade;→  ™</code></pre>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 4:</span> Creating Lists</h1>
-
-    <h2>4.1 Unordered Lists (Bullets)</h2>
-
-    <pre><code>&lt;ul&gt;
+&lt;p&gt;This paragraph is visible.&lt;/p&gt;</code></pre>
+        
+        <div class="tip">
+            <strong>💡 Use comments to:</strong>
+            <ul>
+                <li>Explain what your code does</li>
+                <li>Temporarily hide code while testing</li>
+                <li>Leave notes for yourself or teammates</li>
+            </ul>
+        </div>
+        
+        <h2>3.6 Special Characters</h2>
+        
+        <p>Some characters have special meaning in HTML. To display them, use these codes:</p>
+        
+        <table>
+            <tr>
+                <th>Character</th>
+                <th>HTML Code</th>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <td>&lt;</td>
+                <td><code>&amp;lt;</code></td>
+                <td>Less than</td>
+            </tr>
+            <tr>
+                <td>&gt;</td>
+                <td><code>&amp;gt;</code></td>
+                <td>Greater than</td>
+            </tr>
+            <tr>
+                <td>&amp;</td>
+                <td><code>&amp;amp;</code></td>
+                <td>Ampersand</td>
+            </tr>
+            <tr>
+                <td>&quot;</td>
+                <td><code>&amp;quot;</code></td>
+                <td>Quote</td>
+            </tr>
+            <tr>
+                <td>©</td>
+                <td><code>&amp;copy;</code></td>
+                <td>Copyright</td>
+            </tr>
+            <tr>
+                <td>™</td>
+                <td><code>&amp;trade;</code></td>
+                <td>Trademark</td>
+            </tr>
+        </table>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 4:</span> Creating Lists</h1>
+        
+        <h2>4.1 Unordered Lists (Bullet Points)</h2>
+        
+        <p>Use when the order doesn't matter (like a shopping list).</p>
+        
+        <pre><code>&lt;ul&gt;
     &lt;li&gt;Milk&lt;/li&gt;
     &lt;li&gt;Bread&lt;/li&gt;
     &lt;li&gt;Butter&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
-    <h2>4.2 Ordered Lists (Numbers)</h2>
-
-    <pre><code>&lt;ol&gt;
-    &lt;li&gt;Mix flour&lt;/li&gt;
+        
+        <div class="example">
+            <div class="example-title">Result:</div>
+            <ul>
+                <li>Milk</li>
+                <li>Bread</li>
+                <li>Butter</li>
+            </ul>
+        </div>
+        
+        <h2>4.2 Ordered Lists (Numbers)</h2>
+        
+        <p>Use when the order matters (like recipe steps).</p>
+        
+        <pre><code>&lt;ol&gt;
+    &lt;li&gt;Mix flour and water&lt;/li&gt;
     &lt;li&gt;Add eggs&lt;/li&gt;
-    &lt;li&gt;Bake&lt;/li&gt;
+    &lt;li&gt;Bake for 30 minutes&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
-
-    <h2>4.3 List Attributes</h2>
-
-    <pre><code>&lt;ol start="5" type="A"&gt;
+        
+        <div class="example">
+            <div class="example-title">Result:</div>
+            <ol>
+                <li>Mix flour and water</li>
+                <li>Add eggs</li>
+                <li>Bake for 30 minutes</li>
+            </ol>
+        </div>
+        
+        <h3>Customizing Ordered Lists:</h3>
+        
+        <pre><code>&lt;ol start="5" type="A"&gt;
     &lt;li&gt;Math&lt;/li&gt;
     &lt;li&gt;English&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
-
-    <p>
-      Types: "1" (numbers), "A" (uppercase letters), "a" (lowercase), "I" (Roman
-      numerals)
-    </p>
-
-    <h2>4.4 Nested Lists</h2>
-
-    <pre><code>&lt;ul&gt;
-    &lt;li&gt;Subjects
+        
+        <p><strong>Attributes:</strong></p>
+        <ul>
+            <li><code>start="5"</code> → starts counting from 5</li>
+            <li><code>type="A"</code> → uses letters (A, B, C...)</li>
+            <li><code>type="a"</code> → lowercase letters</li>
+            <li><code>type="I"</code> → Roman numerals (I, II, III...)</li>
+            <li><code>type="i"</code> → lowercase Roman numerals</li>
+        </ul>
+        
+        <h2>4.3 Nested Lists</h2>
+        
+        <p>You can put lists inside lists!</p>
+        
+        <pre><code>&lt;ul&gt;
+    &lt;li&gt;School Subjects
         &lt;ol&gt;
-            &lt;li&gt;Math&lt;/li&gt;
+            &lt;li&gt;Mathematics&lt;/li&gt;
             &lt;li&gt;Science&lt;/li&gt;
+            &lt;li&gt;English&lt;/li&gt;
         &lt;/ol&gt;
     &lt;/li&gt;
+    &lt;li&gt;Hobbies
+        &lt;ul&gt;
+            &lt;li&gt;Football&lt;/li&gt;
+            &lt;li&gt;Reading&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 5:</span> Adding Links and Images</h1>
+        
+        <h2>5.1 Links (Anchor Tag)</h2>
+        
+        <div class="key-concept">
+            <p>Links let users jump to other pages. They use the <code>&lt;a&gt;</code> tag (anchor).</p>
+        </div>
+        
+        <pre><code>&lt;a href="https://www.google.com"&gt;Visit Google&lt;/a&gt;</code></pre>
+        
+        <h3>Important Attributes:</h3>
+        
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><code>href</code></td>
+                <td>Where the link goes (required!)</td>
+                <td><code>href="https://google.com"</code></td>
+            </tr>
+            <tr>
+                <td><code>target</code></td>
+                <td>How to open the link</td>
+                <td><code>target="_blank"</code> (new tab)</td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td>Tooltip when you hover</td>
+                <td><code>title="Search Engine"</code></td>
+            </tr>
+        </table>
+        
+        <div class="example">
+            <div class="example-title">📝 Complete Example:</div>
+            <pre><code>&lt;a href="https://www.bbc.com/news" target="_blank" title="Latest News"&gt;
+    Read BBC News
+&lt;/a&gt;</code></pre>
+        </div>
+        
+        <h3>Special Types of Links:</h3>
+        
+        <pre><code>&lt;!-- Email link --&gt;
+&lt;a href="mailto:teacher@school.com"&gt;Email Your Teacher&lt;/a&gt;
 
-    <div class="page-break"></div>
+&lt;!-- Phone link --&gt;
+&lt;a href="tel:+254700123456"&gt;Call Me&lt;/a&gt;
 
-    <h1><span class="chapter-number">Chapter 5:</span> Links and Images</h1>
+&lt;!-- Link to another page in your website --&gt;
+&lt;a href="about.html"&gt;About Us&lt;/a&gt;</code></pre>
+        
+        <h2>5.2 Images</h2>
+        
+        <div class="key-concept">
+            <p>Images make websites interesting! Use the <code>&lt;img&gt;</code> tag.</p>
+        </div>
+        
+        <pre><code>&lt;img src="puppy.jpg" alt="Cute brown puppy playing" width="400" height="300"&gt;</code></pre>
+        
+        <h3>Essential Attributes:</h3>
+        
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Purpose</th>
+                <th>Required?</th>
+            </tr>
+            <tr>
+                <td><code>src</code></td>
+                <td>Image file location</td>
+                <td>✅ YES</td>
+            </tr>
+            <tr>
+                <td><code>alt</code></td>
+                <td>Description (for blind users and if image fails)</td>
+                <td>✅ YES</td>
+            </tr>
+            <tr>
+                <td><code>width</code></td>
+                <td>Width in pixels</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td><code>height</code></td>
+                <td>Height in pixels</td>
+                <td>Optional</td>
+            </tr>
+        </table>
+        
+        <div class="warning">
+            <strong>⚠️ ALWAYS write alt text!</strong> It helps:
+            <ul>
+                <li>Blind users understand your images</li>
+                <li>Search engines find your website</li>
+                <li>Users know what image was supposed to be there if it fails to load</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <div class="example-title">📝 Good vs Bad Examples:</div>
+            <pre><code>&lt;!-- ❌ BAD: No alt text --&gt;
+&lt;img src="cat.jpg"&gt;
 
-    <h2>5.1 Links (Anchor Tag)</h2>
-
-    <pre><code>&lt;a href="https://google.com" target="_blank"&gt;Google&lt;/a&gt;</code></pre>
-
-    <table>
-      <tr>
-        <th>Attribute</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td>href</td>
-        <td>URL destination (required)</td>
-      </tr>
-      <tr>
-        <td>target="_blank"</td>
-        <td>Opens in new tab</td>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td>Tooltip on hover</td>
-      </tr>
-    </table>
-
-    <h3>Special Links:</h3>
-
-    <pre><code>&lt;a href="mailto:email@example.com"&gt;Email&lt;/a&gt;
-&lt;a href="tel:+254700123456"&gt;Call&lt;/a&gt;</code></pre>
-
-    <h2>5.2 Images</h2>
-
-    <pre><code>&lt;img src="photo.jpg" alt="Description" width="400"&gt;</code></pre>
-
-    <div class="warning">
-      <strong>⚠️ ALWAYS write alt text!</strong> It helps blind users and search
-      engines.
-    </div>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 6:</span> Tables</h1>
-
-    <pre><code>&lt;table border="1"&gt;
-    &lt;caption&gt;Grade 8 Results&lt;/caption&gt;
+&lt;!-- ✅ GOOD: Has descriptive alt text --&gt;
+&lt;img src="cat.jpg" alt="Orange tabby cat sleeping on sofa"&gt;</code></pre>
+        </div>
+        
+        <h3>Using Online Images:</h3>
+        
+        <pre><code>&lt;img src="https://placehold.co/600x400" alt="Placeholder image"&gt;</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 6:</span> Building Tables</h1>
+        
+        <div class="key-concept">
+            <p>Tables organize data in rows and columns (like Excel spreadsheets).</p>
+        </div>
+        
+        <h2>6.1 Basic Table Structure</h2>
+        
+        <pre><code>&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Student&lt;/th&gt;
+        &lt;th&gt;Math&lt;/th&gt;
+        &lt;th&gt;English&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ali&lt;/td&gt;
+        &lt;td&gt;92&lt;/td&gt;
+        &lt;td&gt;88&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Amina&lt;/td&gt;
+        &lt;td&gt;85&lt;/td&gt;
+        &lt;td&gt;90&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+        
+        <h3>Understanding Table Tags:</h3>
+        
+        <table>
+            <tr>
+                <th>Tag</th>
+                <th>Meaning</th>
+            </tr>
+            <tr>
+                <td><code>&lt;table&gt;</code></td>
+                <td>Container for entire table</td>
+            </tr>
+            <tr>
+                <td><code>&lt;tr&gt;</code></td>
+                <td>Table Row</td>
+            </tr>
+            <tr>
+                <td><code>&lt;th&gt;</code></td>
+                <td>Table Header (bold + centered)</td>
+            </tr>
+            <tr>
+                <td><code>&lt;td&gt;</code></td>
+                <td>Table Data (normal cell)</td>
+            </tr>
+        </table>
+        
+        <h2>6.2 Professional Table with All Parts</h2>
+        
+        <pre><code>&lt;table border="1" cellpadding="10" cellspacing="0"&gt;
+    &lt;caption&gt;Grade 8A Term 1 Results&lt;/caption&gt;
+    
     &lt;thead&gt;
         &lt;tr&gt;
-            &lt;th&gt;Student&lt;/th&gt;
+            &lt;th&gt;Student Name&lt;/th&gt;
             &lt;th&gt;Math&lt;/th&gt;
+            &lt;th&gt;Science&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/thead&gt;
+    
     &lt;tbody&gt;
         &lt;tr&gt;
-            &lt;td&gt;Ali&lt;/td&gt;
+            &lt;td&gt;John&lt;/td&gt;
+            &lt;td&gt;85&lt;/td&gt;
+            &lt;td&gt;90&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Mary&lt;/td&gt;
             &lt;td&gt;92&lt;/td&gt;
+            &lt;td&gt;88&lt;/td&gt;
         &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</code></pre>
-
-    <table>
-      <tr>
-        <th>Tag</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td>&lt;table&gt;</td>
-        <td>Container</td>
-      </tr>
-      <tr>
-        <td>&lt;tr&gt;</td>
-        <td>Table Row</td>
-      </tr>
-      <tr>
-        <td>&lt;th&gt;</td>
-        <td>Header (bold)</td>
-      </tr>
-      <tr>
-        <td>&lt;td&gt;</td>
-        <td>Data cell</td>
-      </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 7:</span> Forms</h1>
-
-    <h2>7.1 Basic Form</h2>
-
-    <pre><code>&lt;form action="/submit" method="POST"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" required&gt;
-    &lt;input type="submit"&gt;
+        
+        <h3>Extra Tags Explained:</h3>
+        <ul>
+            <li><code>&lt;caption&gt;</code> - Table title (appears above table)</li>
+            <li><code>&lt;thead&gt;</code> - Groups header rows</li>
+            <li><code>&lt;tbody&gt;</code> - Groups body rows</li>
+            <li><code>cellpadding</code> - Space inside cells</li>
+            <li><code>cellspacing</code> - Space between cells</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 7:</span> Creating Forms</h1>
+        
+        <div class="key-concept">
+            <p>Forms collect information from users (like registration, login, surveys).</p>
+        </div>
+        
+        <h2>7.1 Basic Form Structure</h2>
+        
+        <pre><code>&lt;form action="/submit" method="POST"&gt;
+    &lt;!-- Form inputs go here --&gt;
+    &lt;input type="submit" value="Send"&gt;
 &lt;/form&gt;</code></pre>
+        
+        <h3>Form Attributes:</h3>
+        <ul>
+            <li><code>action</code> - Where to send the data</li>
+            <li><code>method</code> - How to send it (POST or GET)</li>
+        </ul>
+        
+        <h2>7.2 Text Inputs</h2>
+        
+        <pre><code>&lt;form&gt;
+    &lt;label for="username"&gt;Username:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="username" name="username" placeholder="Enter your name" required&gt;
+    &lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="email" id="email" name="email" placeholder="name@example.com"&gt;
+    &lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="pass"&gt;Password:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="password" id="pass" name="password" minlength="8"&gt;
+&lt;/form&gt;</code></pre>
+        
+        <div class="tip">
+            <strong>💡 Always pair labels with inputs!</strong> The <code>for</code> attribute in <code>&lt;label&gt;</code> must match the <code>id</code> in <code>&lt;input&gt;</code>.
+        </div>
+        
+        <h2>7.3 Common Input Types</h2>
+        
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td><code>text</code></td>
+                <td>Regular text</td>
+                <td><code>&lt;input type="text"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>password</code></td>
+                <td>Hides text with dots</td>
+                <td><code>&lt;input type="password"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>email</code></td>
+                <td>Must contain @</td>
+                <td><code>&lt;input type="email"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>number</code></td>
+                <td>Only numbers</td>
+                <td><code>&lt;input type="number" min="1" max="100"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>date</code></td>
+                <td>Calendar picker</td>
+                <td><code>&lt;input type="date"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>color</code></td>
+                <td>Color picker</td>
+                <td><code>&lt;input type="color"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>file</code></td>
+                <td>Upload files</td>
+                <td><code>&lt;input type="file"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>tel</code></td>
+                <td>Phone number</td>
+                <td><code>&lt;input type="tel"&gt;</code></td>
+            </tr>
+        </table>
+        
+        <h2>7.4 Radio Buttons (Choose ONE option)</h2>
+        
+        <pre><code>&lt;p&gt;Choose your gender:&lt;/p&gt;
+&lt;input type="radio" id="male" name="gender" value="male"&gt;
+&lt;label for="male"&gt;Male&lt;/label&gt;&lt;br&gt;
 
-    <h2>7.2 Input Types</h2>
+&lt;input type="radio" id="female" name="gender" value="female"&gt;
+&lt;label for="female"&gt;Female&lt;/label&gt;</code></pre>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong> All radio buttons in the same group MUST have the same <code>name</code> attribute!
+        </div>
+        
+        <h2>7.5 Checkboxes (Choose MULTIPLE options)</h2>
+        
+        <pre><code>&lt;p&gt;Select your hobbies:&lt;/p&gt;
+&lt;input type="checkbox" id="football" name="hobby" value="football"&gt;
+&lt;label for="football"&gt;Football&lt;/label&gt;&lt;br&gt;
 
-    <table>
-      <tr>
-        <th>Type</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td>text</td>
-        <td>Regular text</td>
-      </tr>
-      <tr>
-        <td>password</td>
-        <td>Hidden text</td>
-      </tr>
-      <tr>
-        <td>email</td>
-        <td>Email validation</td>
-      </tr>
-      <tr>
-        <td>number</td>
-        <td>Numbers only</td>
-      </tr>
-      <tr>
-        <td>date</td>
-        <td>Date picker</td>
-      </tr>
-      <tr>
-        <td>checkbox</td>
-        <td>Multiple choices</td>
-      </tr>
-      <tr>
-        <td>radio</td>
-        <td>One choice</td>
-      </tr>
-    </table>
+&lt;input type="checkbox" id="reading" name="hobby" value="reading"&gt;
+&lt;label for="reading"&gt;Reading&lt;/label&gt;&lt;br&gt;
 
-    <h2>7.3 Radio Buttons</h2>
-
-    <pre><code>&lt;input type="radio" name="gender" value="male"&gt; Male
-&lt;input type="radio" name="gender" value="female"&gt; Female</code></pre>
-
-    <div class="tip">Same name attribute groups radio buttons together!</div>
-
-    <h2>7.4 Dropdown Menu</h2>
-
-    <pre><code>&lt;select name="subject"&gt;
-    &lt;option&gt;Math&lt;/option&gt;
-    &lt;option&gt;Science&lt;/option&gt;
+&lt;input type="checkbox" id="coding" name="hobby" value="coding"&gt;
+&lt;label for="coding"&gt;Coding&lt;/label&gt;</code></pre>
+        
+        <h2>7.6 Dropdown Menu (Select)</h2>
+        
+        <pre><code>&lt;label for="subject"&gt;Favourite Subject:&lt;/label&gt;
+&lt;select id="subject" name="subject" required&gt;
+    &lt;option value=""&gt;--Please Choose--&lt;/option&gt;
+    &lt;option value="math"&gt;Mathematics&lt;/option&gt;
+    &lt;option value="sci"&gt;Science&lt;/option&gt;
+    &lt;option value="eng"&gt;English&lt;/option&gt;
+    &lt;option value="kis"&gt;Kiswahili&lt;/option&gt;
 &lt;/select&gt;</code></pre>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 8:</span> Semantic HTML5</h1>
-
-    <div class="key-concept">
-      <h3>Modern Tags for Structure</h3>
-      <p>These tags describe WHAT the content is, not how it looks.</p>
-    </div>
-
-    <table>
-      <tr>
-        <th>Tag</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td>&lt;header&gt;</td>
-        <td>Top section</td>
-      </tr>
-      <tr>
-        <td>&lt;nav&gt;</td>
-        <td>Navigation menu</td>
-      </tr>
-      <tr>
-        <td>&lt;main&gt;</td>
-        <td>Main content (one per page)</td>
-      </tr>
-      <tr>
-        <td>&lt;article&gt;</td>
-        <td>Blog post, news article</td>
-      </tr>
-      <tr>
-        <td>&lt;section&gt;</td>
-        <td>Thematic group</td>
-      </tr>
-      <tr>
-        <td>&lt;aside&gt;</td>
-        <td>Sidebar</td>
-      </tr>
-      <tr>
-        <td>&lt;footer&gt;</td>
-        <td>Bottom section</td>
-      </tr>
-    </table>
-
-    <h2>Complete Page Structure</h2>
-
-    <pre><code>&lt;header&gt;
-    &lt;h1&gt;My Blog&lt;/h1&gt;
-    &lt;nav&gt;
-        &lt;a href="#home"&gt;Home&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/header&gt;
-
-&lt;main&gt;
-    &lt;article&gt;
-        &lt;h2&gt;Blog Post&lt;/h2&gt;
-        &lt;p&gt;Content...&lt;/p&gt;
-    &lt;/article&gt;
-&lt;/main&gt;
-
-&lt;footer&gt;
-    &lt;p&gt;© 2024&lt;/p&gt;
-&lt;/footer&gt;</code></pre>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 9:</span> Best Practices</h1>
-
-    <div class="tip">
-      <h3>✅ Good Practices:</h3>
-      <ol>
-        <li>Always close tags</li>
-        <li>Use lowercase: &lt;div&gt; not &lt;DIV&gt;</li>
-        <li>Always write alt text for images</li>
-        <li>Use semantic tags</li>
-        <li>Indent nested elements</li>
-        <li>Add comments for clarity</li>
-        <li>Only one &lt;h1&gt; per page</li>
-      </ol>
-    </div>
-
-    <div class="warning">
-      <h3>❌ Common Mistakes:</h3>
-      <ul>
-        <li>Forgetting closing tags</li>
-        <li>No alt text on images</li>
-        <li>Using uppercase tags</li>
-        <li>Multiple &lt;h1&gt; tags</li>
-        <li>Mixing &lt;b&gt; instead of &lt;strong&gt;</li>
-      </ul>
-    </div>
-
-    <h2>Common Attributes</h2>
-
-    <table>
-      <tr>
-        <th>Attribute</th>
-        <th>Purpose</th>
-      </tr>
-      <tr>
-        <td>id</td>
-        <td>Unique identifier (one per page)</td>
-      </tr>
-      <tr>
-        <td>class</td>
-        <td>Group elements (can repeat)</td>
-      </tr>
-      <tr>
-        <td>style</td>
-        <td>Inline CSS</td>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td>Tooltip text</td>
-      </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h1><span class="chapter-number">Chapter 10:</span> Practice & Quizzes</h1>
-
-    <h2>Mini Projects</h2>
-
-    <div class="example">
-      <h3>🎯 Project 1: Personal Portfolio</h3>
-      <ul>
-        <li>Heading with your name</li>
-        <li>Paragraph about yourself</li>
-        <li>Photo with alt text</li>
-        <li>List of hobbies</li>
-        <li>Links to favorite sites</li>
-      </ul>
-    </div>
-
-    <div class="example">
-      <h3>🎯 Project 2: School Timetable</h3>
-      <ul>
-        <li>Table with days and periods</li>
-        <li>Proper headers</li>
-        <li>Caption</li>
-      </ul>
-    </div>
-
-    <div class="example">
-      <h3>🎯 Project 3: Registration Form</h3>
-      <ul>
-        <li>Text, email, number inputs</li>
-        <li>Dropdown menu</li>
-        <li>Radio buttons and checkboxes</li>
-        <li>Submit button</li>
-      </ul>
-    </div>
-
-    <h2>Practice Quizzes</h2>
-
-    <div class="quiz">
-      <h3>Quiz 1</h3>
-      <p>Write the complete HTML skeleton with title "My Project"</p>
-    </div>
-
-    <div class="quiz">
-      <h3>Quiz 2</h3>
-      <p>Create: "Water is H₂O and costs KSh 50 (was 100)"</p>
-    </div>
-
-    <div class="quiz">
-      <h3>Quiz 3</h3>
-      <p>Make an ordered list starting from number 3</p>
-    </div>
-
-    <div class="quiz">
-      <h3>Quiz 4</h3>
-      <p>Create a form with name, email, color picker, submit button</p>
-    </div>
-
-    <div class="quiz">
-      <h3>Quiz 5: Fix These Errors</h3>
-      <pre>
-&lt;H1&gt;Title&lt;/H1
-&lt;P&gt;Text
-&lt;img src="photo.jpg"&gt;</pre
-      >
-    </div>
-
-    <h2>Quiz Answers</h2>
-
-    <h3>Answer 1:</h3>
-    <pre><code>&lt;!DOCTYPE html&gt;
+        
+        <h2>7.7 Text Area (Multi-line text)</h2>
+        
+        <pre><code>&lt;label for="message"&gt;Your Message:&lt;/label&gt;&lt;br&gt;
+&lt;textarea id="message" name="message" rows="5" cols="40" placeholder="Type here..."&gt;&lt;/textarea&gt;</code></pre>
+        
+        <h2>7.8 Submit and Reset Buttons</h2>
+        
+        <pre><code>&lt;input type="submit" value="Register Now!"&gt;
+&lt;input type="reset" value="Clear Form"&gt;</code></pre>
+        
+        <div class="example">
+            <div class="example-title">📝 Complete Registration Form:</div>
+            <pre><code>&lt;form action="/register" method="POST"&gt;
+    &lt;h2&gt;Student Registration&lt;/h2&gt;
+    
+    &lt;label for="name"&gt;Full Name:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="name" name="name" required&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="age"&gt;Age:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="number" id="age" name="age" min="12" max="18"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="class"&gt;Class:&lt;/label&gt;
+    &lt;select id="class" name="class"&gt;
+        &lt;option&gt;Grade 8A&lt;/option&gt;
+        &lt;option&gt;Grade 8B&lt;/option&gt;
+    &lt;/select&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;input type="submit" value="Register"&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 8:</span> Modern HTML5 Elements</h1>
+        
+        <div class="key-concept">
+            <h3>🎯 What are Semantic Tags?</h3>
+            <p><strong>Semantic</strong> means "meaningful." These tags describe what the content IS, not how it looks.</p>
+        </div>
+        
+        <h2>8.1 Why Use Semantic Tags?</h2>
+        <ul>
+            <li>✅ Search engines (Google) understand your content better</li>
+            <li>✅ Screen readers help blind people navigate</li>
+            <li>✅ Your code is easier to read and organize</li>
+            <li>✅ Better for teamwork</li>
+        </ul>
+        
+        <h2>8.2 Common Semantic Tags</h2>
+        
+        <table>
+            <tr>
+                <th>Tag</th>
+                <th>Purpose</th>
+                <th>Example Use</th>
+            </tr>
+            <tr>
+                <td><code>&lt;header&gt;</code></td>
+                <td>Top section of page</td>
+                <td>Logo, navigation menu</td>
+            </tr>
+            <tr>
+                <td><code>&lt;nav&gt;</code></td>
+                <td>Navigation links</td>
+                <td>Menu bar</td>
+            </tr>
+            <tr>
+                <td><code>&lt;main&gt;</code></td>
+                <td>Main content (only ONE per page)</td>
+                <td>The actual page content</td>
+            </tr>
+            <tr>
+                <td><code>&lt;article&gt;</code></td>
+                <td>Self-contained content</td>
+                <td>Blog post, news article</td>
+            </tr>
+            <tr>
+                <td><code>&lt;section&gt;</code></td>
+                <td>Thematic group of content</td>
+                <td>Chapters in a page</td>
+            </tr>
+            <tr>
+                <td><code>&lt;aside&gt;</code></td>
+                <td>Side content</td>
+                <td>Sidebar, advertisements</td>
+            </tr>
+            <tr>
+                <td><code>&lt;footer&gt;</code></td>
+                <td>Bottom of page</td>
+                <td>Copyright, contact info</td>
+            </tr>
+        </table>
+        
+        <h2>8.3 Complete Page Structure</h2>
+        
+        <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;My Project&lt;/title&gt;
+    &lt;title&gt;My Blog&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
+    
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Blog&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href="#home"&gt;Home&lt;/a&gt; |
+            &lt;a href="#about"&gt;About&lt;/a&gt; |
+            &lt;a href="#contact"&gt;Contact&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;My First Blog Post&lt;/h2&gt;
+            &lt;p&gt;This is the content of my article...&lt;/p&gt;
+        &lt;/article&gt;
+        
+        &lt;section&gt;
+            &lt;h2&gt;Comments&lt;/h2&gt;
+            &lt;p&gt;Great article! - John&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;aside&gt;
+        &lt;h3&gt;About Me&lt;/h3&gt;
+        &lt;p&gt;I'm a Grade 8 student who loves coding!&lt;/p&gt;
+    &lt;/aside&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2024 My Blog. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+    
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+        
+        <h2>8.4 Figure and Figcaption</h2>
+        
+        <p>Use these to add captions to images:</p>
+        
+        <pre><code>&lt;figure&gt;
+    &lt;img src="sunset.jpg" alt="Beautiful sunset over ocean"&gt;
+    &lt;figcaption&gt;Sunset at Diani Beach, Kenya&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+        
+        <h2>8.5 Div vs Semantic Tags</h2>
+        
+        <div class="warning">
+            <strong>❌ OLD WAY (avoid this):</strong>
+            <pre><code>&lt;div class="header"&gt;...&lt;/div&gt;
+&lt;div class="nav"&gt;...&lt;/div&gt;
+&lt;div class="footer"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="tip">
+            <strong>✅ NEW WAY (use this):</strong>
+            <pre><code>&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+        </div>
+        
+        <h2>8.6 When to Use Div and Span</h2>
+        
+        <ul>
+            <li><code>&lt;div&gt;</code> - Block container (takes full width, new line)</li>
+            <li><code>&lt;span&gt;</code> - Inline container (stays in line)</li>
+        </ul>
+        
+        <p><strong>Rule:</strong> Only use <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> when no semantic tag fits!</p>
+        
+        <pre><code>&lt;p&gt;The word &lt;span style="color:red;"&gt;red&lt;/span&gt; is colored.&lt;/p&gt;
 
-    <h3>Answer 2:</h3>
-    <pre><code>&lt;p&gt;Water is H&lt;sub&gt;2&lt;/sub&gt;O and costs KSh 50 (was &lt;s&gt;100&lt;/s&gt;)&lt;/p&gt;</code></pre>
+&lt;div class="warning-box"&gt;
+    &lt;p&gt;This is a special container.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 9:</span> Best Practices & Common Mistakes</h1>
+        
+        <h2>9.1 Common HTML Attributes</h2>
+        
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Purpose</th>
+                <th>Usage</th>
+            </tr>
+            <tr>
+                <td><code>id</code></td>
+                <td>Unique identifier (only ONE per page)</td>
+                <td><code>&lt;div id="header"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>class</code></td>
+                <td>Group elements (can repeat)</td>
+                <td><code>&lt;p class="important"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>style</code></td>
+                <td>Inline CSS (avoid if possible)</td>
+                <td><code>&lt;p style="color:blue;"&gt;</code></td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td>Tooltip on hover</td>
+                <td><code>&lt;a title="Click here"&gt;</code></td>
+            </tr>
+        </table>
+        
+        <h2>9.2 HTML Rules (Do These!)</h2>
+        
+        <div class="tip">
+            <h3>✅ Good Practices:</h3>
+            <ol>
+                <li>Always close your tags properly</li>
+                <li>Use lowercase for tag names: <code>&lt;div&gt;</code> not <code>&lt;DIV&gt;</code></li>
+                <li>Indent nested elements for readability</li>
+                <li>Always write <code>alt</code> text for images</li>
+                <li>Use semantic HTML5 tags</li>
+                <li>Include <code>&lt;!DOCTYPE html&gt;</code> at the top</li>
+                <li>Add comments to explain complex code</li>
+                <li>Validate your HTML (use W3C Validator)</li>
+            </ol>
+        </div>
+        
+        <h2>9.3 Common Mistakes (Avoid These!)</h2>
+        
+        <div class="warning">
+            <h3>❌ Common Errors:</h3>
+            
+            <p><strong>1. Forgetting closing tags:</strong></p>
+            <pre><code>&lt;!-- ❌ Wrong --&gt;
+&lt;p&gt;Hello
+&lt;p&gt;World
 
-    <h3>Answer 3:</h3>
-    <pre><code>&lt;ol start="3"&gt;
-    &lt;li&gt;Wake up&lt;/li&gt;
-    &lt;li&gt;Breakfast&lt;/li&gt;
+&lt;!-- ✅ Correct --&gt;
+&lt;p&gt;Hello&lt;/p&gt;
+&lt;p&gt;World&lt;/p&gt;</code></pre>
+            
+            <p><strong>2. Mixing up <code>&lt;strong&gt;</code> and <code>&lt;b&gt;</code>:</strong></p>
+            <pre><code>&lt;!-- ❌ Bad (just visual) --&gt;
+&lt;b&gt;Important!&lt;/b&gt;
+
+&lt;!-- ✅ Good (meaningful) --&gt;
+&lt;strong&gt;Important!&lt;/strong&gt;</code></pre>
+            
+            <p><strong>3. No alt text on images:</strong></p>
+            <pre><code>&lt;!-- ❌ Bad --&gt;
+&lt;img src="photo.jpg"&gt;
+
+&lt;!-- ✅ Good --&gt;
+&lt;img src="photo.jpg" alt="School graduation ceremony"&gt;</code></pre>
+            
+            <p><strong>4. Using uppercase tags:</strong></p>
+            <pre><code>&lt;!-- ❌ Wrong --&gt;
+&lt;DIV&gt;&lt;P&gt;Text&lt;/P&gt;&lt;/DIV&gt;
+
+&lt;!-- ✅ Correct --&gt;
+&lt;div&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/div&gt;</code></pre>
+            
+            <p><strong>5. Multiple <code>&lt;h1&gt;</code> tags:</strong></p>
+            <pre><code>&lt;!-- ❌ Bad --&gt;
+&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;h1&gt;About Us&lt;/h1&gt;
+
+&lt;!-- ✅ Good --&gt;
+&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;h2&gt;About Us&lt;/h2&gt;</code></pre>
+        </div>
+        
+        <h2>9.4 Quick Reference Checklist</h2>
+        
+        <p>Before finishing your HTML page, check these:</p>
+        
+        <ul>
+            <li>☐ <code>&lt;!DOCTYPE html&gt;</code> at the top?</li>
+            <li>☐ All tags properly closed?</li>
+            <li>☐ All images have <code>alt</code> text?</li>
+            <li>☐ Only one <code>&lt;h1&gt;</code> per page?</li>
+            <li>☐ Used semantic tags instead of divs?</li>
+            <li>☐ Proper indentation (readable)?</li>
+            <li>☐ No spelling errors in content?</li>
+            <li>☐ All links work?</li>
+        </ul>
+        
+        <div class="page-break"></div>
+        
+        <h1><span class="chapter-number">Chapter 10:</span> Practice Projects & Quizzes</h1>
+        
+        <h2>10.1 Mini Projects (Try These!)</h2>
+        
+        <div class="example">
+            <h3>🎯 Project 1: Personal Portfolio</h3>
+            <p><strong>Goal:</strong> Create a simple "About Me" page</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Main heading with your name</li>
+                <li>A paragraph about yourself</li>
+                <li>Your photo with proper alt text</li>
+                <li>List of your hobbies (unordered)</li>
+                <li>Links to your favorite websites</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h3>🎯 Project 2: School Timetable</h3>
+            <p><strong>Goal:</strong> Create your class schedule</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Use a table with proper headers</li>
+                <li>Days of the week as columns</li>
+                <li>Time periods as rows</li>
+                <li>Subject names in cells</li>
+                <li>Add a caption "Grade 8A Timetable"</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h3>🎯 Project 3: Favorite Games List</h3>
+            <p><strong>Goal:</strong> Showcase your favorite games</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Ordered list of top 5 games</li>
+                <li>Nested list showing game features</li>
+                <li>Image for each game</li>
+                <li>Links to game websites</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h3>🎯 Project 4: Registration Form</h3>
+            <p><strong>Goal:</strong> Create a club sign-up form</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Text inputs for name and email</li>
+                <li>Number input for age</li>
+                <li>Dropdown to select grade</li>
+                <li>Checkboxes for interests</li>
+                <li>Radio buttons for gender</li>
+                <li>Submit and reset buttons</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h3>🎯 Project 5: Simple Blog Post</h3>
+            <p><strong>Goal:</strong> Write a blog article using semantic tags</p>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></li>
+                <li><code>&lt;article&gt;</code> for the blog post</li>
+                <li><code>&lt;section&gt;</code> for comments</li>
+                <li><code>&lt;aside&gt;</code> for author info</li>
+                <li>Properly formatted text with headings</li>
+            </ul>
+        </div>
+        
+        <h2>10.2 Practice Quizzes</h2>
+        
+        <div class="quiz">
+            <h3>Quiz 1: HTML Skeleton</h3>
+            <p>Write the complete HTML skeleton structure with:</p>
+            <ul>
+                <li>DOCTYPE declaration</li>
+                <li>HTML tag with English language</li>
+                <li>Head section with charset and viewport</li>
+                <li>Title: "My Grade 8 Project"</li>
+                <li>Empty body section</li>
+            </ul>
+        </div>
+        
+        <div class="quiz">
+            <h3>Quiz 2: Special Characters</h3>
+            <p>Create a paragraph that displays:</p>
+            <p>"Water is H₂O and costs KSh 50 (was <s>100</s>)"</p>
+            <p><em>Hint: Use subscript and strikethrough tags</em></p>
+        </div>
+        
+        <div class="quiz">
+            <h3>Quiz 3: Ordered List</h3>
+            <p>Make an ordered list of your daily routine that:</p>
+            <ul>
+                <li>Starts from number 3</li>
+                <li>Has at least 4 activities</li>
+                <li>Uses proper HTML structure</li>
+            </ul>
+        </div>
+        
+        <div class="quiz">
+            <h3>Quiz 4: Registration Form</h3>
+            <p>Create a form with these fields:</p>
+            <ul>
+                <li>Name (text input, required)</li>
+                <li>Email (email input)</li>
+                <li>Favorite color (color picker)</li>
+                <li>Submit button</li>
+            </ul>
+        </div>
+        
+        <div class="quiz">
+            <h3>Quiz 5: Fix the Errors</h3>
+            <p>Find and fix ALL mistakes in this code:</p>
+            <pre><code>&lt;H1&gt;Big Title&lt;/H1
+&lt;P&gt;This is text
+&lt;img src="photo.jpg"&gt;
+&lt;A HREF="page.html"&gt;link&lt;/a&gt;</code></pre>
+        </div>
+        
+        <div class="quiz">
+            <h3>Quiz 6: Semantic HTML</h3>
+            <p>Replace the divs with proper semantic tags:</p>
+            <pre><code>&lt;div class="header"&gt;My Website&lt;/div&gt;
+&lt;div class="navigation"&gt;Menu&lt;/div&gt;
+&lt;div class="main-content"&gt;Article&lt;/div&gt;
+&lt;div class="footer"&gt;Copyright 2024&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h2>📝 Quiz Answers</h2>
+        
+        <h3>Answer 1: HTML Skeleton</h3>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Grade 8 Project&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content goes here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        
+        <h3>Answer 2: Special Characters</h3>
+        <pre><code>&lt;p&gt;Water is H&lt;sub&gt;2&lt;/sub&gt;O and costs KSh 50 (was &lt;s&gt;100&lt;/s&gt;)&lt;/p&gt;</code></pre>
+        
+        <h3>Answer 3: Ordered List</h3>
+        <pre><code>&lt;ol start="3"&gt;
+    &lt;li&gt;Wake up at 6:00 AM&lt;/li&gt;
+    &lt;li&gt;Have breakfast&lt;/li&gt;
+    &lt;li&gt;Go to school&lt;/li&gt;
+    &lt;li&gt;Do homework&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
-
-    <h3>Answer 4:</h3>
-    <pre><code>&lt;form&gt;
-    &lt;label&gt;Name: &lt;input type="text" required&gt;&lt;/label&gt;&lt;br&gt;
-    &lt;label&gt;Email: &lt;input type="email"&gt;&lt;/label&gt;&lt;br&gt;
-    &lt;label&gt;Color: &lt;input type="color"&gt;&lt;/label&gt;&lt;br&gt;
-    &lt;input type="submit"&gt;
+        
+        <h3>Answer 4: Registration Form</h3>
+        <pre><code>&lt;form&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;label for="color"&gt;Favorite Color:&lt;/label&gt;
+    &lt;input type="color" id="color" name="color"&gt;&lt;br&gt;&lt;br&gt;
+    
+    &lt;input type="submit" value="Submit"&gt;
 &lt;/form&gt;</code></pre>
-
-    <h3>Answer 5 - Fixed:</h3>
-    <pre><code>&lt;h1&gt;Title&lt;/h1&gt;
-&lt;p&gt;Text&lt;/p&gt;
-&lt;img src="photo.jpg" alt="Photo description"&gt;</code></pre>
-
-    <div class="page-break"></div>
-
-    <h1>Quick Reference</h1>
-
-    <h2>Essential Tags</h2>
-    <pre>
-&lt;!DOCTYPE html&gt;  - Document type
-&lt;html&gt;           - Root element
-&lt;head&gt;           - Metadata
-&lt;body&gt;           - Visible content
-&lt;h1&gt; to &lt;h6&gt;    - Headings
-&lt;p&gt;              - Paragraph
-&lt;a href=""&gt;      - Link
-&lt;img src=""&gt;     - Image
-&lt;ul&gt; &lt;ol&gt; &lt;li&gt;  - Lists
-&lt;table&gt; &lt;tr&gt; &lt;td&gt; - Tables
-&lt;form&gt; &lt;input&gt;  - Forms
-    </pre>
-
-    <h2>Special Characters</h2>
-    <table>
-      <tr>
-        <th>Character</th>
-        <th>Code</th>
-      </tr>
-      <tr>
-        <td>&lt;</td>
-        <td>&amp;lt;</td>
-      </tr>
-      <tr>
-        <td>&gt;</td>
-        <td>&amp;gt;</td>
-      </tr>
-      <tr>
-        <td>&amp;</td>
-        <td>&amp;amp;</td>
-      </tr>
-      <tr>
-        <td>©</td>
-        <td>&amp;copy;</td>
-      </tr>
-    </table>
-
-    <div class="page-break"></div>
-
-    <div style="text-align: center; padding: 80px 20px">
-      <h1>🎉 Congratulations!</h1>
-      <p style="font-size: 1.2em; margin: 30px 0">
-        You've completed the<br />
-        <strong>HTML Learning Guide</strong>
-      </p>
-      <p style="margin-top: 40px">
-        Keep practicing and you'll become a web developer!<br /><br />
-        Happy Coding! 💻
-      </p>
-      <p style="margin-top: 40px">
-        <strong>Newton Muhindi</strong><br />
-        <a href="https://github.com/NewtonMuhindi">GitHub</a> |
-        <a href="https://www.linkedin.com/in/newton-muhindi/">LinkedIn</a>
-      </p>
-      <p style="margin-top: 40px">Contact: 0795482911</p>
+        
+        <h3>Answer 5: Fixed Code</h3>
+        <pre><code>&lt;h1&gt;Big Title&lt;/h1&gt;
+&lt;p&gt;This is text&lt;/p&gt;
+&lt;img src="photo.jpg" alt="Description"&gt;
+&lt;a href="page.html"&gt;link&lt;/a&gt;</code></pre>
+        
+        <p><strong>Errors found:</strong></p>
+        <ul>
+            <li>Tags must be lowercase (<code>&lt;h1&gt;</code> not <code>&lt;H1&gt;</code>)</li>
+            <li>Missing closing bracket on <code>&lt;h1&gt;</code></li>
+            <li>Missing closing tag for <code>&lt;p&gt;</code></li>
+            <li>Missing alt attribute on <code>&lt;img&gt;</code></li>
+            <li>Inconsistent case in <code>&lt;a&gt;</code> tag</li>
+        </ul>
+        
+        <h3>Answer 6: Semantic HTML</h3>
+        <pre><code>&lt;header&gt;My Website&lt;/header&gt;
+&lt;nav&gt;Menu&lt;/nav&gt;
+&lt;main&gt;Article&lt;/main&gt;
+&lt;footer&gt;Copyright 2024&lt;/footer&gt;</code></pre>
+        
+        <div class="page-break"></div>
+        
+        <h1>🎓 Summary & Next Steps</h1>
+        
+        <h2>What You've Learned</h2>
+        
+        <div class="key-concept">
+            <p>Congratulations! You now know:</p>
+            <ul>
+                <li>✅ What HTML is and how it works</li>
+                <li>✅ The basic HTML page structure</li>
+                <li>✅ How to format text with headings, paragraphs, and styles</li>
+                <li>✅ Creating lists (ordered, unordered, nested)</li>
+                <li>✅ Adding links and images</li>
+                <li>✅ Building tables for data</li>
+                <li>✅ Creating forms with various input types</li>
+                <li>✅ Using modern HTML5 semantic tags</li>
+                <li>✅ Best practices and common mistakes to avoid</li>
+            </ul>
+        </div>
+        
+        <h2>Your HTML Learning Journey</h2>
+        
+        <div class="example">
+            <h3>📚 Stage 1: Beginner (YOU ARE HERE!) ✓</h3>
+            <p>You've mastered the fundamentals of HTML!</p>
+            
+            <h3>🎨 Stage 2: Next Step - CSS</h3>
+            <p>Learn to style your HTML pages with colors, fonts, layouts, and animations.</p>
+            
+            <h3>⚡ Stage 3: JavaScript</h3>
+            <p>Make your websites interactive with programming!</p>
+            
+            <h3>🚀 Stage 4: Advanced Web Development</h3>
+            <p>Frameworks, databases, and building complete web applications.</p>
+        </div>
+        
+        <h2>Important Reminders</h2>
+        
+        <div class="tip">
+            <h3>💡 Tips for Success:</h3>
+            <ol>
+                <li><strong>Practice daily:</strong> Code a little bit every day</li>
+                <li><strong>Build real projects:</strong> Don't just read—create!</li>
+                <li><strong>Make mistakes:</strong> Errors help you learn</li>
+                <li><strong>Ask questions:</strong> No question is too small</li>
+                <li><strong>View source:</strong> Look at HTML on your favorite websites (Right-click → View Page Source)</li>
+                <li><strong>Use online tools:</strong> W3Schools, MDN, CodePen for practice</li>
+                <li><strong>Keep this guide:</strong> Refer back whenever you need help</li>
+            </ol>
+        </div>
+        
+        <h2>Useful Resources</h2>
+        
+        <table>
+            <tr>
+                <th>Resource</th>
+                <th>What It's For</th>
+            </tr>
+            <tr>
+                <td>W3Schools.com</td>
+                <td>Tutorials and examples</td>
+            </tr>
+            <tr>
+                <td>MDN Web Docs</td>
+                <td>Complete HTML reference</td>
+            </tr>
+            <tr>
+                <td>CodePen.io</td>
+                <td>Write and share HTML online</td>
+            </tr>
+            <tr>
+                <td>FreeCodeCamp</td>
+                <td>Free interactive courses</td>
+            </tr>
+            <tr>
+                <td>Validator.w3.org</td>
+                <td>Check if your HTML is correct</td>
+            </tr>
+        </table>
+        
+        <h2>Challenge Yourself!</h2>
+        
+        <div class="example">
+            <h3>🏆 Final Challenge Project</h3>
+            <p><strong>Create a complete website about your school with:</strong></p>
+            <ul>
+                <li><strong>Home page:</strong> Welcome message, school photo, navigation menu</li>
+                <li><strong>About page:</strong> School history, mission statement</li>
+                <li><strong>Timetable page:</strong> Class schedule in a table</li>
+                <li><strong>Contact page:</strong> Contact form with all input types you learned</li>
+                <li><strong>Gallery page:</strong> Photos with proper figures and captions</li>
+            </ul>
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                <li>Use semantic HTML5 tags throughout</li>
+                <li>All images must have alt text</li>
+                <li>Proper heading hierarchy (only one h1 per page)</li>
+                <li>Working navigation between all pages</li>
+                <li>No errors when validated</li>
+            </ul>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <h1>📖 Quick Reference Guide</h1>
+        
+        <h2>Essential HTML Tags Cheat Sheet</h2>
+        
+        <h3>Document Structure</h3>
+        <pre><code>&lt;!DOCTYPE html&gt;     - Document type declaration
+&lt;html&gt;              - Root element
+&lt;head&gt;              - Document metadata
+&lt;title&gt;             - Page title (in browser tab)
+&lt;body&gt;              - Visible page content
+&lt;meta&gt;              - Metadata (charset, viewport)</code></pre>
+        
+        <h3>Text Content</h3>
+        <pre><code>&lt;h1&gt; to &lt;h6&gt;       - Headings (h1 biggest, h6 smallest)
+&lt;p&gt;                 - Paragraph
+&lt;br&gt;                - Line break
+&lt;hr&gt;                - Horizontal rule
+&lt;strong&gt;            - Bold (important)
+&lt;em&gt;                - Italic (emphasis)
+&lt;mark&gt;              - Highlighted text
+&lt;sub&gt;               - Subscript
+&lt;sup&gt;               - Superscript</code></pre>
+        
+        <h3>Lists</h3>
+        <pre><code>&lt;ul&gt;                - Unordered list (bullets)
+&lt;ol&gt;                - Ordered list (numbers)
+&lt;li&gt;                - List item</code></pre>
+        
+        <h3>Links & Media</h3>
+        <pre><code>&lt;a href=""&gt;         - Link (anchor)
+&lt;img src="" alt=""&gt; - Image
+&lt;figure&gt;            - Image with caption
+&lt;figcaption&gt;        - Caption for figure</code></pre>
+        
+        <h3>Tables</h3>
+        <pre><code>&lt;table&gt;             - Table container
+&lt;tr&gt;                - Table row
+&lt;th&gt;                - Table header
+&lt;td&gt;                - Table data (cell)
+&lt;caption&gt;           - Table caption</code></pre>
+        
+        <h3>Forms</h3>
+        <pre><code>&lt;form&gt;              - Form container
+&lt;input&gt;             - Input field
+&lt;label&gt;             - Input label
+&lt;textarea&gt;          - Multi-line text
+&lt;select&gt;            - Dropdown menu
+&lt;option&gt;            - Dropdown option
+&lt;button&gt;            - Button</code></pre>
+        
+        <h3>Semantic HTML5</h3>
+        <pre><code>&lt;header&gt;            - Page/section header
+&lt;nav&gt;               - Navigation links
+&lt;main&gt;              - Main content
+&lt;article&gt;           - Self-contained content
+&lt;section&gt;           - Thematic section
+&lt;aside&gt;             - Side content
+&lt;footer&gt;            - Page/section footer</code></pre>
+        
+        <h2>Common Input Types</h2>
+        
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Code</th>
+            </tr>
+            <tr>
+                <td>Text</td>
+                <td><code>&lt;input type="text"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><code>&lt;input type="password"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><code>&lt;input type="email"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Number</td>
+                <td><code>&lt;input type="number"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td><code>&lt;input type="date"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Color</td>
+                <td><code>&lt;input type="color"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>File</td>
+                <td><code>&lt;input type="file"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Radio</td>
+                <td><code>&lt;input type="radio"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Checkbox</td>
+                <td><code>&lt;input type="checkbox"&gt;</code></td>
+            </tr>
+            <tr>
+                <td>Submit</td>
+                <td><code>&lt;input type="submit"&gt;</code></td>
+            </tr>
+        </table>
+        
+        <h2>Special Characters Reference</h2>
+        
+        <table>
+            <tr>
+                <th>Character</th>
+                <th>HTML Code</th>
+            </tr>
+            <tr>
+                <td>&lt;</td>
+                <td><code>&amp;lt;</code></td>
+            </tr>
+            <tr>
+                <td>&gt;</td>
+                <td><code>&amp;gt;</code></td>
+            </tr>
+            <tr>
+                <td>&amp;</td>
+                <td><code>&amp;amp;</code></td>
+            </tr>
+            <tr>
+                <td>&quot;</td>
+                <td><code>&amp;quot;</code></td>
+            </tr>
+            <tr>
+                <td>©</td>
+                <td><code>&amp;copy;</code></td>
+            </tr>
+            <tr>
+                <td>™</td>
+                <td><code>&amp;trade;</code></td>
+            </tr>
+            <tr>
+                <td>®</td>
+                <td><code>&amp;reg;</code></td>
+            </tr>
+            <tr>
+                <td>Space</td>
+                <td><code>&amp;nbsp;</code></td>
+            </tr>
+        </table>
+        
+        <div class="page-break"></div>
+        
+        <h1>📝 Student Notes Section</h1>
+        
+        <p style="color: #888; font-style: italic; text-align: center; margin: 50px 0;">
+            Use the pages below to write your own notes, questions, or code examples<br>
+            as you practice HTML!
+        </p>
+        
+        <div style="border: 2px solid #ddd; padding: 30px; min-height: 400px; margin: 20px 0;">
+            <h3 style="color: #3498db;">My Notes:</h3>
+            <div style="line-height: 2; margin-top: 20px;">
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+            </div>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <div style="border: 2px solid #ddd; padding: 30px; min-height: 400px; margin: 20px 0;">
+            <h3 style="color: #3498db;">Questions to Ask My Teacher:</h3>
+            <div style="line-height: 2; margin-top: 20px;">
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+                _______________________________________________________________________________<br>
+            </div>
+        </div>
+        
+        <div class="page-break"></div>
+        
+        <div style="text-align: center; padding: 100px 20px; border: 3px solid #2c3e50;">
+            <h1 style="color: #2c3e50; font-size: 2.5em;">🎉 Congratulations!</h1>
+            <p style="font-size: 1.3em; margin: 30px 0; color: #555;">
+                You've completed the<br>
+                <strong style="color: #3498db;">HTML Learning Guide</strong>
+            </p>
+            <p style="font-size: 1.1em; color: #666; line-height: 1.8;">
+                You are now ready to build amazing websites!<br>
+                Keep practicing, stay curious, and never stop learning.
+            </p>
+            <div style="margin-top: 50px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
+                <p style="font-weight: bold; color: #2c3e50;">Remember:</p>
+                <p style="font-style: italic; color: #555;">
+                    "The best way to learn HTML is to write HTML."<br>
+                    Practice every day and you'll become a web developer!
+                </p>
+            </div>
+            <p style="margin-top: 50px; color: #888;">
+                Happy Coding! 💻<br>
+                <span style="font-size: 0.9em;">Version 2.0 | 2025</span>
+            </p>
+        </div>
+        
     </div>
-  </body>
+    
+    <script>
+        // Add page numbers when printing
+        window.addEventListener('beforeprint', function() {
+            const pages = document.querySelectorAll('.page-break');
+            pages.forEach((page, index) => {
+                const pageNum = document.createElement('div');
+                pageNum.style.cssText = 'position: absolute; bottom: 20px; right: 20px; color: #888; font-size: 12px;';
+                pageNum.textContent = `Page ${index + 1}`;
+                page.parentElement.style.position = 'relative';
+                page.parentElement.appendChild(pageNum);
+            });
+        });
+    </script>
+</body>
 </html>
